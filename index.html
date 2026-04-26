@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Альянс — Трекер Силы</title>
+<title>Альянс — Трекер Силы v2</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -17,15 +17,10 @@
     --up: #22c55e;
     --down: #ef4444;
     --neutral: #64748b;
-    --r5: #f0b429;
-    --r4: #c084fc;
-    --r3: #60a5fa;
-    --r2: #34d399;
-    --r1: #94a3b8;
+    --new: #f59e0b;
+    --left: #6b7280;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     background: var(--bg);
     color: var(--text);
@@ -37,221 +32,127 @@
       repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px),
       repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px);
   }
-
-  header {
-    text-align: center;
-    margin-bottom: 32px;
-  }
-
+  header { text-align: center; margin-bottom: 28px; }
   header h1 {
     font-family: 'Orbitron', monospace;
-    font-size: clamp(18px, 5vw, 32px);
+    font-size: clamp(16px, 4vw, 28px);
     font-weight: 900;
     color: var(--gold);
     letter-spacing: 0.1em;
     text-shadow: 0 0 30px rgba(240,180,41,0.4);
   }
-
-  header p {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 6px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+  header p { color: var(--muted); font-size: 12px; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .date-badge {
+    display: inline-block;
+    background: rgba(240,180,41,0.1);
+    border: 1px solid rgba(240,180,41,0.3);
+    color: var(--gold);
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-top: 8px;
   }
-
-  .stats-row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 28px;
-  }
-
+  .stats-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 24px; }
   .stat-card {
     background: var(--panel);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 14px 20px;
+    padding: 12px 18px;
     text-align: center;
-    min-width: 110px;
+    min-width: 100px;
     flex: 1;
-    max-width: 160px;
+    max-width: 150px;
   }
-
-  .stat-card .val {
-    font-family: 'Orbitron', monospace;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--gold);
-  }
-
-  .stat-card .lbl {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 4px;
-    letter-spacing: 0.05em;
-  }
-
-  .filters {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-    align-items: center;
-  }
-
+  .stat-card .val { font-family: 'Orbitron', monospace; font-size: 20px; font-weight: 700; color: var(--gold); }
+  .stat-card .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; margin-top: 3px; letter-spacing: 0.05em; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
   .filter-btn {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    background: var(--panel); border: 1px solid var(--border); color: var(--muted);
+    font-family: 'Rajdhani', sans-serif; font-size: 12px; font-weight: 600;
+    padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s;
+    text-transform: uppercase; letter-spacing: 0.05em;
   }
-
-  .filter-btn:hover, .filter-btn.active {
-    border-color: var(--gold);
-    color: var(--gold);
-    background: rgba(240,180,41,0.08);
-  }
-
+  .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(240,180,41,0.08); }
   .search {
-    flex: 1;
-    min-width: 160px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 6px 12px;
-    color: var(--text);
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
+    flex: 1; min-width: 160px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 12px; color: var(--text);
+    font-family: 'Rajdhani', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s;
   }
-
   .search:focus { border-color: var(--gold-dim); }
   .search::placeholder { color: var(--muted); }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-  }
-
+  .count { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+  .table-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
   thead th {
-    font-family: 'Orbitron', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
-    text-align: left;
-    cursor: pointer;
-    white-space: nowrap;
-    user-select: none;
+    font-family: 'Orbitron', monospace; font-size: 9px; font-weight: 700;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 10px 12px; border-bottom: 1px solid var(--border);
+    text-align: left; cursor: pointer; white-space: nowrap; user-select: none;
   }
-
   thead th:hover { color: var(--gold); }
-  thead th.sorted { color: var(--gold); }
-
-  tbody tr {
-    border-bottom: 1px solid rgba(30,38,53,0.6);
-    transition: background 0.15s;
-  }
-
+  tbody tr { border-bottom: 1px solid rgba(30,38,53,0.6); transition: background 0.15s; }
   tbody tr:hover { background: rgba(240,180,41,0.04); }
-
-  td {
-    padding: 10px 12px;
-    vertical-align: middle;
-    white-space: nowrap;
-  }
-
+  tbody tr.row-new { background: rgba(245,158,11,0.05); }
+  tbody tr.row-left { opacity: 0.45; }
+  td { padding: 9px 12px; vertical-align: middle; white-space: nowrap; }
   .rank-badge {
-    display: inline-block;
-    font-family: 'Orbitron', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 4px;
+    display: inline-block; font-family: 'Orbitron', monospace; font-size: 10px;
+    font-weight: 700; padding: 2px 7px; border-radius: 4px;
   }
-
-  .r5 { background: rgba(240,180,41,0.15); color: var(--r5); border: 1px solid rgba(240,180,41,0.3); }
-  .r4 { background: rgba(192,132,252,0.12); color: var(--r4); border: 1px solid rgba(192,132,252,0.25); }
-  .r3 { background: rgba(96,165,250,0.12); color: var(--r3); border: 1px solid rgba(96,165,250,0.25); }
-  .r2 { background: rgba(52,211,153,0.12); color: var(--r2); border: 1px solid rgba(52,211,153,0.25); }
-  .r1 { background: rgba(148,163,184,0.1); color: var(--r1); border: 1px solid rgba(148,163,184,0.2); }
-
+  .r5 { background: rgba(240,180,41,0.15); color: #f0b429; border: 1px solid rgba(240,180,41,0.3); }
+  .r4 { background: rgba(192,132,252,0.12); color: #c084fc; border: 1px solid rgba(192,132,252,0.25); }
+  .r3 { background: rgba(96,165,250,0.12); color: #60a5fa; border: 1px solid rgba(96,165,250,0.25); }
+  .r2 { background: rgba(52,211,153,0.12); color: #34d399; border: 1px solid rgba(52,211,153,0.25); }
+  .r1 { background: rgba(148,163,184,0.1); color: #94a3b8; border: 1px solid rgba(148,163,184,0.2); }
+  .rq { background: rgba(100,116,139,0.1); color: #64748b; border: 1px solid rgba(100,116,139,0.2); }
+  .rank-up { font-size: 10px; color: var(--up); margin-left: 4px; }
   .power { font-family: 'Orbitron', monospace; font-size: 13px; }
-  .power-new { color: var(--text); }
   .power-old { color: var(--muted); font-size: 12px; }
-
-  .delta {
-    font-family: 'Orbitron', monospace;
-    font-size: 12px;
-    font-weight: 700;
-  }
+  .delta { font-family: 'Orbitron', monospace; font-size: 12px; font-weight: 700; }
   .delta.up { color: var(--up); }
   .delta.down { color: var(--down); }
   .delta.zero { color: var(--neutral); }
-  .delta.new-only { color: #f59e0b; font-size: 11px; }
-
-  .nick { font-weight: 600; font-size: 15px; }
-
-  .no-data { color: var(--muted); font-size: 12px; font-style: italic; }
-
-  .table-wrap {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    overflow-x: auto;
-  }
-
-  .count { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+  .delta.nodata { color: var(--new); font-size: 10px; }
+  .delta.left-tag { color: var(--left); font-size: 10px; font-style: italic; }
+  .nick { font-weight: 600; font-size: 14px; }
+  .status-new { font-size: 10px; color: var(--new); margin-left: 6px; }
+  .status-left { font-size: 10px; color: var(--left); margin-left: 6px; }
+  .no-data { color: var(--muted); font-size: 12px; }
 </style>
 </head>
 <body>
 
 <header>
   <h1>⚔ АЛЬЯНС — ТРЕКЕР СИЛЫ</h1>
-  <p>Сравнение мощи участников · Отчёт</p>
+  <p>Сравнение · Было vs Стало</p>
+  <div class="date-badge">Скан: 26.04.2026</div>
 </header>
 
 <div class="stats-row" id="statsRow"></div>
 
 <div class="filters">
   <input class="search" id="searchInput" placeholder="Поиск по нику..." oninput="render()">
-  <button class="filter-btn active" onclick="setFilter('all', this)">Все</button>
-  <button class="filter-btn" onclick="setFilter('R5', this)">R5</button>
-  <button class="filter-btn" onclick="setFilter('R4', this)">R4</button>
-  <button class="filter-btn" onclick="setFilter('R3', this)">R3</button>
-  <button class="filter-btn" onclick="setFilter('R2', this)">R2</button>
-  <button class="filter-btn" onclick="setFilter('R1', this)">R1</button>
-  <button class="filter-btn" onclick="setFilter('up', this)">📈 Рост</button>
-  <button class="filter-btn" onclick="setFilter('zero', this)">😴 Без роста</button>
+  <button class="filter-btn active" onclick="setFilter('all',this)">Все</button>
+  <button class="filter-btn" onclick="setFilter('R5',this)">R5</button>
+  <button class="filter-btn" onclick="setFilter('R4',this)">R4</button>
+  <button class="filter-btn" onclick="setFilter('R3',this)">R3</button>
+  <button class="filter-btn" onclick="setFilter('R2',this)">R2</button>
+  <button class="filter-btn" onclick="setFilter('R1',this)">R1</button>
+  <button class="filter-btn" onclick="setFilter('up',this)">📈 Растут</button>
+  <button class="filter-btn" onclick="setFilter('zero',this)">😴 Стоят</button>
+  <button class="filter-btn" onclick="setFilter('new',this)">🆕 Новые</button>
 </div>
 
 <div class="count" id="countLabel"></div>
-
 <div class="table-wrap">
   <table>
     <thead>
       <tr>
-        <th onclick="sortBy('nick')">#  НИК</th>
+        <th onclick="sortBy('nick')"># НИК</th>
         <th onclick="sortBy('rank')">РАНГ</th>
-        <th onclick="sortBy('power')">СИЛА (СЕЙЧАС)</th>
-        <th onclick="sortBy('old')">СИЛА (БЫЛО)</th>
+        <th onclick="sortBy('power')">СИЛА СЕЙЧАС</th>
+        <th onclick="sortBy('old')">СИЛА БЫЛО</th>
         <th onclick="sortBy('delta')">РАЗНИЦА</th>
       </tr>
     </thead>
@@ -260,79 +161,71 @@
 </div>
 
 <script>
-// Данные из скриншотов: {nick, rank, power(текущий из таблицы игроков), old(из отчёта было), report(стало из отчёта)}
-const raw = [
+// status: 'active' | 'new' | 'left'
+// rankWas: предыдущий ранг если повысился
+const data = [
   // R5
-  { nick: 'olivvka',            rank: 'R5', power: 2023585,  old: null },
+  { nick:'olivvka',             rank:'R5', power:2067689,  old:2023585,  status:'active' },
   // R4
-  { nick: 'AnChigure',          rank: 'R4', power: 2394718,  old: 1809926 },
-  { nick: 'heart3',             rank: 'R4', power: 3176161,  old: 2311685 },
-  { nick: 'Ilua24',             rank: 'R4', power: 2745787,  old: 2311685 },
-  { nick: 'Оплот9',             rank: 'R4', power: 2030701,  old: 1543702 },
-  { nick: 'Ganibal777',         rank: 'R4', power: 637729,   old: 594690  },
+  { nick:'AnChigure',           rank:'R4', power:2672563,  old:2394718,  status:'active' },
+  { nick:'heart3',              rank:'R4', power:3670202,  old:3176161,  status:'active' },
+  { nick:'Нэо1',                rank:'R4', power:3409726,  old:3108003,  status:'active', rankWas:'R3' },
+  { nick:'Ilua24',              rank:'R4', power:2790900,  old:2745787,  status:'active' },
+  { nick:'Оплот9',              rank:'R4', power:2129150,  old:2030701,  status:'active' },
+  { nick:'Ganibal777',          rank:'R4', power:637729,   old:637729,   status:'active' },
   // R3
-  { nick: 'ШАМАН 1',            rank: 'R3', power: 3614973,  old: 3062667 },
-  { nick: 'Safavid Az empr',    rank: 'R3', power: 3431817,  old: 2674367 },
-  { nick: 'Нэо1',               rank: 'R3', power: 3108003,  old: null    },
-  { nick: 'AJS',                rank: 'R3', power: 2395255,  old: 2109764 },
-  { nick: '1krystall',          rank: 'R3', power: 1520800,  old: 1225152 },
-  { nick: 'SYVII',              rank: 'R3', power: 1417012,  old: 1219342 },
-  { nick: 'XxSoldierBoyXx',     rank: 'R3', power: 1364922,  old: 1067882 },
-  { nick: 'Molekula 1',         rank: 'R3', power: 1360872,  old: 1049858 },
-  { nick: 'King Adam',          rank: 'R3', power: 1205348,  old: 902752  },
-  { nick: 'Sova1430',           rank: 'R3', power: 1038584,  old: 1038584 },
-  { nick: 'Каспер',             rank: 'R3', power: 1037397,  old: 1024291 },
-  { nick: 'ZorgevilVIP',        rank: 'R3', power: 715261,   old: 654110  },
-  { nick: 'Правитель222287912', rank: 'R3', power: 706592,   old: 605035  },
-  { nick: 'PUTINBB',            rank: 'R3', power: 562315,   old: 494591  },
-  { nick: 'Sansud',             rank: 'R3', power: 537451,   old: 296674  },
-  { nick: 'Олекса',             rank: 'R3', power: 490560,   old: 556763  },
-  { nick: 'ALMAZKAZAH',         rank: 'R3', power: 334404,   old: 212522  },
+  { nick:'Safavid Az empr',     rank:'R3', power:3832369,  old:3431817,  status:'active' },
+  { nick:'ШАМАН 1',             rank:'R3', power:3675109,  old:3614973,  status:'active' },
+  { nick:'Павел 9274',          rank:'R3', power:3251192,  old:null,     status:'new'    },
+  { nick:'AJS',                 rank:'R3', power:2748738,  old:2395255,  status:'active' },
+  { nick:'1krystall',           rank:'R3', power:1672557,  old:1520800,  status:'active' },
+  { nick:'SYVII',               rank:'R3', power:1508913,  old:1417012,  status:'active' },
+  { nick:'XxSoldierBoyXx',      rank:'R3', power:1456945,  old:1364922,  status:'active' },
+  { nick:'Molekula 1',          rank:'R3', power:1417537,  old:1360872,  status:'active' },
+  { nick:'King Adam',           rank:'R3', power:1264797,  old:1205348,  status:'active' },
+  { nick:'Каспер',              rank:'R3', power:1037397,  old:1037397,  status:'active' },
+  { nick:'Правитель222287912',  rank:'R3', power:742292,   old:706592,   status:'active' },
+  { nick:'PUTINBB',             rank:'R3', power:618848,   old:562315,   status:'active' },
+  { nick:'Sansud',              rank:'R3', power:494648,   old:537451,   status:'active' },
+  { nick:'ALMAZKAZAH',          rank:'R3', power:381194,   old:334404,   status:'active' },
   // R2
-  { nick: 'aleks76',            rank: 'R2', power: 576290,   old: 424094  },
-  { nick: 'Petryaev',           rank: 'R2', power: 553460,   old: 433575  },
-  { nick: '2Ðfrm',              rank: 'R2', power: 376177,   old: 275374  },
-  { nick: 'сокол',              rank: 'R2', power: 352340,   old: 352340  },
+  { nick:'Gunthree',            rank:'R2', power:3442897,  old:3435047,  status:'active', rankWas:'R1' },
+  { nick:'mMaksiMm',            rank:'R2', power:1909854,  old:1892297,  status:'active', rankWas:'R1' },
+  { nick:'Artem404283',         rank:'R2', power:1665072,  old:null,     status:'new'    },
+  { nick:'Petryaev',            rank:'R2', power:636792,   old:553460,   status:'active' },
+  { nick:'aleks76',             rank:'R2', power:609867,   old:576290,   status:'active' },
+  { nick:'2Ðfrm',               rank:'R2', power:413012,   old:376177,   status:'active' },
   // R1
-  { nick: 'Gunthree',           rank: 'R1', power: 3435047,  old: null    },
-  { nick: 'mMaksiMm',           rank: 'R1', power: 1892297,  old: null    },
-  { nick: 'Mzumo1997',          rank: 'R1', power: 1078395,  old: null    },
-  { nick: 'Ник ф',              rank: 'R1', power: 937556,   old: null    },
-  { nick: 'Smiley1993',         rank: 'R1', power: 880742,   old: null    },
-  { nick: 'titmousssse',        rank: 'R1', power: 536601,   old: 385829  },
-  { nick: 'Yachiru K',          rank: 'R1', power: 431652,   old: 425639  },
-  { nick: 'Правитель222275975', rank: 'R1', power: 416200,   old: null    },
-  { nick: 'AlonE F1',           rank: 'R1', power: 251022,   old: null    },
-  { nick: 'Governor222242350',  rank: 'R1', power: 235789,   old: 211126  },
-  { nick: 'AlonE F2',           rank: 'R1', power: 169453,   old: null    },
-  { nick: 'Правитель225275051', rank: 'R1', power: 140964,   old: null    },
-  { nick: 'Parmenion ll',       rank: 'R1', power: 119901,   old: null    },
-  { nick: 'Правитель224127227', rank: 'R1', power: 91040,    old: 85880   },
-  { nick: 'Greciuss ll',        rank: 'R1', power: 85292,    old: null    },
-  { nick: 'завет10',            rank: 'R1', power: 67197,    old: null    },
-  { nick: 'Правитель222501253', rank: 'R1', power: 48990,    old: null    },
-  { nick: 'Правитель225087484', rank: 'R1', power: 7181,     old: null    },
-  { nick: 'Правитель222250190', rank: 'R1', power: 4480,     old: null    },
-  // Только в отчёте (не было в скриншотах клана)
-  { nick: 'dreamer4',           rank: '?',  power: 1256643,  old: 1256643 },
-  { nick: 'КолчакFm',          rank: '?',  power: 864353,   old: 688386  },
-  { nick: 'DanChoK2',           rank: '?',  power: 298387,   old: 298387  },
-  { nick: 'Правитель222285451', rank: '?',  power: 285675,   old: 285675  },
-  { nick: 'Оплот10',            rank: '?',  power: 62661,    old: 48404   },
-  { nick: 'Gouverneur222934422',rank: '?',  power: 127586,   old: 127586  },
+  { nick:'swКРИК',              rank:'R1', power:6186922,  old:null,     status:'new'    },
+  { nick:'FSCHERRY',            rank:'R1', power:1394633,  old:null,     status:'new'    },
+  { nick:'Mzumo1997',           rank:'R1', power:1263706,  old:1078395,  status:'active' },
+  { nick:'Akillis',             rank:'R1', power:1192274,  old:null,     status:'new'    },
+  { nick:'Ник ф',               rank:'R1', power:975719,   old:937556,   status:'active' },
+  { nick:'farm farm 52',        rank:'R1', power:906711,   old:null,     status:'new'    },
+  { nick:'Smiley1993',          rank:'R1', power:906140,   old:880742,   status:'active' },
+  { nick:'fam Leo',             rank:'R1', power:462808,   old:null,     status:'new'    },
+  { nick:'best kfg',            rank:'R1', power:445745,   old:null,     status:'new'    },
+  { nick:'Yachiru K',           rank:'R1', power:431652,   old:431652,   status:'active' },
+  { nick:'Правитель222275975',  rank:'R1', power:387909,   old:416200,   status:'active' },
+  { nick:'farm accanut',        rank:'R1', power:304994,   old:null,     status:'new'    },
+  { nick:'AlonE F1',            rank:'R1', power:287345,   old:251022,   status:'active' },
+  { nick:'AlonE F2',            rank:'R1', power:213471,   old:169453,   status:'active' },
+  { nick:'Arn1205',             rank:'R1', power:187098,   old:null,     status:'new'    },
+  { nick:'Правитель225275051',  rank:'R1', power:175743,   old:140964,   status:'active' },
+  { nick:'завет10',             rank:'R1', power:67197,    old:67197,    status:'active' },
+  { nick:'Правитель222501253',  rank:'R1', power:48990,    old:48990,    status:'active' },
+  { nick:'Правитель222250190',  rank:'R1', power:4480,     old:4480,     status:'active' },
 ];
 
 let sortKey = 'power';
 let sortDir = -1;
 let activeFilter = 'all';
 
-function fmt(n) {
-  return n ? n.toLocaleString('ru-RU') : '—';
-}
+function fmt(n) { return n != null ? n.toLocaleString('ru-RU') : '—'; }
 
-function getDelta(row) {
-  if (row.old === null) return null;
-  return row.power - row.old;
+function getDelta(r) {
+  if (r.power == null || r.old == null) return null;
+  return r.power - r.old;
 }
 
 function setFilter(f, btn) {
@@ -350,63 +243,69 @@ function sortBy(key) {
 
 function render() {
   const q = document.getElementById('searchInput').value.toLowerCase();
-
-  let data = raw.filter(r => {
+  let rows = data.filter(r => {
     if (q && !r.nick.toLowerCase().includes(q)) return false;
     if (activeFilter === 'all') return true;
+    if (activeFilter === 'new') return r.status === 'new';
     if (activeFilter === 'up') return getDelta(r) !== null && getDelta(r) > 0;
     if (activeFilter === 'zero') return getDelta(r) !== null && getDelta(r) <= 0;
     return r.rank === activeFilter;
   });
 
-  data.sort((a, b) => {
+  rows.sort((a, b) => {
     let av, bv;
     if (sortKey === 'nick') { av = a.nick.toLowerCase(); bv = b.nick.toLowerCase(); return av < bv ? -sortDir : sortDir; }
-    if (sortKey === 'rank') { const o = {R5:5,R4:4,R3:3,R2:2,R1:1,'?':0}; av = o[a.rank]||0; bv = o[b.rank]||0; }
-    if (sortKey === 'power') { av = a.power; bv = b.power; }
-    if (sortKey === 'old') { av = a.old||0; bv = b.old||0; }
-    if (sortKey === 'delta') { av = getDelta(a)||0; bv = getDelta(b)||0; }
+    const ro = {R5:5,R4:4,R3:3,R2:2,R1:1,'?':0};
+    if (sortKey === 'rank') { av = ro[a.rank]||0; bv = ro[b.rank]||0; }
+    else if (sortKey === 'power') { av = a.power||0; bv = b.power||0; }
+    else if (sortKey === 'old') { av = a.old||0; bv = b.old||0; }
+    else if (sortKey === 'delta') { av = getDelta(a)||0; bv = getDelta(b)||0; }
     return (bv - av) * sortDir;
   });
 
-  document.getElementById('countLabel').textContent = `Показано: ${data.length} из ${raw.length} игроков`;
+  document.getElementById('countLabel').textContent = `Показано: ${rows.length} из ${data.length}`;
+
+  const active = data.filter(r => r.status !== 'left');
+  const grew = active.filter(r => getDelta(r) !== null && getDelta(r) > 0).length;
+  const stale = active.filter(r => getDelta(r) !== null && getDelta(r) <= 0).length;
+  const newPlayers = data.filter(r => r.status === 'new').length;
+  const leftPlayers = data.filter(r => r.status === 'left').length;
+  const totalDelta = data.reduce((s,r) => s + (getDelta(r)||0), 0);
+  const promoted = data.filter(r => r.rankWas).length;
+
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card"><div class="val">${active.length}</div><div class="lbl">В клане</div></div>
+    <div class="stat-card"><div class="val" style="color:var(--up)">${grew}</div><div class="lbl">Растут</div></div>
+    <div class="stat-card"><div class="val" style="color:var(--neutral)">${stale}</div><div class="lbl">Без роста</div></div>
+    <div class="stat-card"><div class="val" style="color:var(--new)">${newPlayers}</div><div class="lbl">Новые</div></div>
+
+    <div class="stat-card"><div class="val" style="color:#a78bfa;font-size:15px">${promoted}</div><div class="lbl">Повышены</div></div>
+    <div class="stat-card"><div class="val" style="color:var(--up);font-size:15px">+${(totalDelta/1e6).toFixed(1)}M</div><div class="lbl">Прирост</div></div>
+  `;
 
   const tbody = document.getElementById('tbody');
-  tbody.innerHTML = data.map((r, i) => {
+  tbody.innerHTML = rows.map((r, i) => {
     const delta = getDelta(r);
     let deltaHtml;
-    if (delta === null) {
-      deltaHtml = `<span class="delta new-only">нет данных</span>`;
-    } else if (delta > 0) {
-      deltaHtml = `<span class="delta up">+${fmt(delta)}</span>`;
-    } else if (delta < 0) {
-      deltaHtml = `<span class="delta down">${fmt(delta)}</span>`;
-    } else {
-      deltaHtml = `<span class="delta zero">0</span>`;
-    }
+    if (r.status === 'left') deltaHtml = `<span class="delta left-tag">покинул клан</span>`;
+    else if (delta === null) deltaHtml = `<span class="delta nodata">нет данных</span>`;
+    else if (delta > 0) deltaHtml = `<span class="delta up">+${fmt(delta)}</span>`;
+    else if (delta < 0) deltaHtml = `<span class="delta down">${fmt(delta)}</span>`;
+    else deltaHtml = `<span class="delta zero">0</span>`;
 
-    const rankClass = r.rank.toLowerCase().replace('?','r1');
-    return `<tr>
-      <td class="nick">${i+1}. ${r.nick}</td>
-      <td><span class="rank-badge ${rankClass}">${r.rank}</span></td>
-      <td class="power power-new">${fmt(r.power)}</td>
-      <td class="power power-old">${r.old ? fmt(r.old) : '<span class="no-data">—</span>'}</td>
+    const rc = r.rank.toLowerCase();
+    const rankHtml = `<span class="rank-badge ${rc}">${r.rank}</span>${r.rankWas ? `<span class="rank-up">↑${r.rankWas}</span>` : ''}`;
+    const statusHtml = r.status === 'new' ? `<span class="status-new">🆕</span>` :
+                       r.status === 'left' ? `<span class="status-left">🚪</span>` : '';
+
+    return `<tr class="${r.status === 'new' ? 'row-new' : r.status === 'left' ? 'row-left' : ''}">
+      <td class="nick">${i+1}. ${r.nick}${statusHtml}</td>
+      <td>${rankHtml}</td>
+      <td class="power">${r.power != null ? fmt(r.power) : '<span class="no-data">—</span>'}</td>
+      <td class="power power-old">${r.old != null ? fmt(r.old) : '<span class="no-data">—</span>'}</td>
       <td>${deltaHtml}</td>
     </tr>`;
   }).join('');
-
-  // Stats
-  const total = raw.length;
-  const grew = raw.filter(r => getDelta(r) !== null && getDelta(r) > 0).length;
-  const stale = raw.filter(r => getDelta(r) !== null && getDelta(r) <= 0).length;
-  const totalDelta = raw.reduce((s,r) => s + (getDelta(r)||0), 0);
-
-  document.getElementById('statsRow').innerHTML = `
-    <div class="stat-card"><div class="val">${total}</div><div class="lbl">Игроков</div></div>
-    <div class="stat-card"><div class="val" style="color:var(--up)">${grew}</div><div class="lbl">Растут</div></div>
-    <div class="stat-card"><div class="val" style="color:var(--neutral)">${stale}</div><div class="lbl">Без роста</div></div>
-    <div class="stat-card"><div class="val" style="font-size:16px;color:var(--up)">+${(totalDelta/1e6).toFixed(1)}M</div><div class="lbl">Общий прирост</div></div>
-  `;
 }
 
 render();
